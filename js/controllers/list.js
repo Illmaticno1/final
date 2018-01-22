@@ -1,6 +1,17 @@
 app.controller('ListController', function() {
   this.dummyData = 'hello world';
 
+  this.search = '';
+  this.quizActive = false;
+  this.activeFact = {};
+  this.activateQuiz = () => {
+  this.quizActive = true;
+  };
+  this.changeActiveFact = (index) => {
+    this.activeFact = index;
+    console.log('btn works');
+  };
+
   this.fbFactz = [
     {
       type: 'Celebration Factz',
