@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app='footballFactz'>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="page-header">
+        <h1>Football Fun Factz</h1>
+        <h3>
+          Study up before you take the quiz
+          <strong>QUIZ</strong>
+        </h3>
+      </div>
+      <div ng-controller='ListController as list'>
+        <div class='row'>
+          <div class='col-sum-6' ng-repeat='item in list.fbFactz'>
+            <div class="well well-sm">
+              <div class="row">
+                <div class='col-md-6'>
+                  <img src="{{item.img_url}}" class="img-rounded img-responsive">
+                </div>
+                <div class='col-md-6'>
+                  <h4>{{item.type}}</h4>
+                  <p>{{item.fact1}}</p>
+                  <p>{{item.fact2}}</p>
+                  <p>{{item.fact3}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers/list.js"></script>
+
+    </script>
+    </script>
+    <!-- THIRD PARTY SCRIPTS -->
+  </body>
+</html>
