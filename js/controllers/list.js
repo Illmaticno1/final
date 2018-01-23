@@ -1,12 +1,14 @@
 app.controller('ListController', function() {
-  this.dummyData = 'hello world';
+  // this.dummyData = 'hello world';
 
   this.search = '';
   this.quizActive = false;
   this.activeFact = {};
+
   this.activateQuiz = () => {
-  this.quizActive = true;
+    this.quizActive = true;
   };
+
   this.changeActiveFact = (index) => {
     this.activeFact = index;
     console.log('btn works');
@@ -35,4 +37,183 @@ app.controller('ListController', function() {
       fact3: 'That number surpassed the total expenditure on the Super Bowl in the 1960s, 70s and 80s combined.'
     }
   ]
-});
+}); //end of ListController
+
+app.controller('quizCtrl', function() {
+  this.activeQuestion = 0;
+  let numQuestionAnswered = 0;
+
+  this.questionAnswered = () => {
+    let quizLength = quizQuestions.length;
+    if (quizQuestions[this.activeQuestion].selected !== null) {
+      numQuestionAnswered++;
+      if (numQuestionAnswered >= quizLength) {
+        // finalize quiz
+      }
+    }
+  }
+  this.quizQuestions = [
+    {
+      type: 'text',
+      text: 'How much revenue does the NFL collect on average from the superbowl?',
+      possibilities: [
+        {
+          answer: '$620 million'
+        },
+        {
+          answer: '$920 million'
+        },
+        {
+          answer: '$120 million'
+        },
+        {
+          answer: '$1 billion'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'How much is NBC expected to collect from ads?',
+      possibilities: [
+        {
+          answer: '$450 million'
+        },
+        {
+          answer: '$500 million'
+        },
+        {
+          answer: '$80 million'
+        },
+        {
+          answer: '$200 million'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'what percentage of people are likely to buy something they saw in a superbowl commercial?',
+      possibilities: [
+        {
+          answer: '90%'
+        },
+        {
+          answer: '60%'
+        },
+        {
+          answer: '20%'
+        },
+        {
+          answer: '10%'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'How much does ad time cost per second during the superbowl?',
+      possibilities: [
+        {
+          answer: '$188,000 per second'
+        },
+        {
+          answer: '$166,000 per second'
+        },
+        {
+          answer: '$199,000 per second'
+        },
+        {
+          answer: '$100,000 per second'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'what percentage of Americans consider commercials to be the most important part of the game?',
+      possibilities: [
+        {
+          answer: '1%'
+        },
+        {
+          answer: '99%'
+        },
+        {
+          answer: '25%'
+        },
+        {
+          answer: '50%'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'On average how many people will call in sick the Monday after the Super Bowl?',
+      possibilities: [
+        {
+          answer: '1.5 million'
+        },
+        {
+          answer: '10.5 million'
+        },
+        {
+          answer: '$.5 million'
+        },
+        {
+          answer: '$300 billion'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'How much beer does Americans consume on Super Bowl Sunday?',
+      possibilities: [
+        {
+          answer: '635.5 million gallons'
+        },
+        {
+          answer: '325.5 million gallons'
+        },
+        {
+          answer: '500 million gallons'
+        },
+        {
+          answer: '225.5 million gallons'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'text',
+      text: 'Amongs day where Americans consume the most food, where does Super Bowl Sunday rank?',
+      possibilities: [
+        {
+          answer: '1st'
+        },
+        {
+          answer: '2nd'
+        },
+        {
+          answer: '3rd'
+        },
+        {
+          answer: '4th'
+        }
+      ],
+      selected: null,
+      correct: null
+    }
+
+
+  ]
+}); //end of quizCtrl
