@@ -43,15 +43,32 @@ app.controller('quizCtrl', function() {
   this.activeQuestion = 0;
   let numQuestionAnswered = 0;
 
+  this.selectAnswer = (index) => {
+    this.quizQuestions[this.activeQuestion].selected = index;
+  }
+
+  this.setActiveQuestion = (index) => {
+    var breakOut = false;
+    var quizLength = this.quizQuestions.length - 1;
+    while (!breakOut) {
+      this.activeQuestion = this.activeQuestion < quizLength?++this.activeQuestion:0;
+      if (this.quizQuestions[this.activeQuestion].selected === null) {
+        breakOut = true;
+      }
+    }
+  }
+
   this.questionAnswered = () => {
-    let quizLength = quizQuestions.length;
-    if (quizQuestions[this.activeQuestion].selected !== null) {
+    var quizLength = this.quizQuestions.length;
+    if (this.quizQuestions[this.activeQuestion].selected !== null) {
       numQuestionAnswered++;
       if (numQuestionAnswered >= quizLength) {
         // finalize quiz
       }
     }
+    this.setActiveQuestion();
   }
+
   this.quizQuestions = [
     {
       type: 'text',
@@ -208,6 +225,26 @@ app.controller('quizCtrl', function() {
         },
         {
           answer: '4th'
+        }
+      ],
+      selected: null,
+      correct: null
+    },
+    {
+      type: 'image',
+      text: 'which team lost 4 consecutive superbowls?',
+      possibilities: [
+        {
+          answer: 'http://www.stilettosetsports.com/wp-content/uploads/2009/01/nfc-champs.jpg'
+        },
+        {
+          answer: 'http://static.nfl.com/static/content//public/image/getty/2009/09000d5d81079cbb_gallery_600.jpg'
+        },
+        {
+          answer: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/04/12/104400168-leads_his_team.600x400.jpg?v=1492007209'
+        },
+        {
+          answer: 'https://www.sikids.com/sites/default/files/sikids/pages/images/cms/imce/users/dantec/2014/02/super-bowl-xlviii-photos-15.jpg'
         }
       ],
       selected: null,
