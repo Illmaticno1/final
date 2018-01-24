@@ -41,30 +41,56 @@ app.controller('ListController', function() {
 
 app.controller('quizCtrl', function() {
   this.activeQuestion = 0;
+  this.error = false;
+  this.finalize = false;
   let numQuestionAnswered = 0;
 
   this.selectAnswer = (index) => {
     this.quizQuestions[this.activeQuestion].selected = index;
   }
 
+  this.finalizeAnswers = () => {
+    this.finalize = false;
+    numQuestionAnswered = 0;
+    this.activeQuestion = 0;
+    quizMetrics.markQuiz()
+  }
+
   this.setActiveQuestion = (index) => {
-    var breakOut = false;
-    var quizLength = this.quizQuestions.length - 1;
-    while (!breakOut) {
-      this.activeQuestion = this.activeQuestion < quizLength?++this.activeQuestion:0;
-      if (this.quizQuestions[this.activeQuestion].selected === null) {
-        breakOut = true;
+    if (index === undefined) {
+      let breakOut = false;
+      let quizLength = this.quizQuestions.length - 1;
+      while (!breakOut) {
+        this.activeQuestion = this.activeQuestion < quizLength?++this.activeQuestion:0;
+        if (this.activeQuestion === 0) {
+          this.error = true;
+        }
+        if (this.quizQuestions[this.activeQuestion].selected === null) {
+          breakOut = true;
+        }
       }
+    } else {
+      this.activeQuestion = index;
     }
   }
 
   this.questionAnswered = () => {
-    var quizLength = this.quizQuestions.length;
+    let quizLength = this.quizQuestions.length;
+
     if (this.quizQuestions[this.activeQuestion].selected !== null) {
       numQuestionAnswered++;
       if (numQuestionAnswered >= quizLength) {
         // finalize quiz
+        for (let i = 0; i < quizLength; i++) {
+          if (this.quizQuestions[i].selected === null) {
+            this.setActiveQuestion(i);
+            return;
+          }
+        }
       }
+      this.error = false;
+      this.finalize = true;
+      return;
     }
     this.setActiveQuestion();
   }

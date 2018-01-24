@@ -83,8 +83,8 @@
                 <div class="col-xs-8">
                   <h2>Progress:</h2>
                   <div class="btn-toolbar">
-                    <button class="btn btn-primary" ng-repeat='q in quiz.quizQuestions' ng-class="{'btn-info': q.selected !== null, 'btn-danger': q.selected === null}">
-                      <span class="glyphicon" ng-class="{'glyphicon-pencil': q.selected !== null, 'glyphicon-question-sign': q.selected === null}" ng-click="quiz.setActiveQuestion($index)">
+                    <button class="btn btn-primary" ng-repeat='q in quiz.quizQuestions' ng-class="{'btn-info': q.selected !== null, 'btn-danger': q.selected === null}" ng-click="quiz.setActiveQuestion($index)">
+                      <span class="glyphicon" ng-class="{'glyphicon-pencil': q.selected !== null, 'glyphicon-question-sign': q.selected === null}">
                       </span>
                     </button>
                   </div>
@@ -107,7 +107,11 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" ng-hide="quiz.finalize">
+                <div class="alert alert-danger" ng-show="quiz.error">
+                  Error! you have not answered all of the Questions
+                  <button class="close" ng-click='quiz.error = false'>&times</button>
+                </div>
                 <h3>Questions:</h3>
                 <div class="well well-sm">
                   <div class="row">
@@ -134,6 +138,17 @@
                 </div>
                 <button class="btn btn-warning" ng-click='quiz.questionAnswered()'>Continue</button>
               </div>
+
+              <div class="well well-sm" ng-show="quiz.finalize">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <h3>Are you sure you want to submit your answers?</h3>
+                    <button class="btn btn-success" ng-click="quiz.finalizeAnswers()">Yes</button>
+                    <button class="btn btn-danger" ng-click="quiz.finalize = false">No</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div> <!-- end of quiz -->
 
