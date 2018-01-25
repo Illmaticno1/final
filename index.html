@@ -183,7 +183,13 @@
                   </div>
                 </div>
               </div> <!--  end of results row -->
-
+              <div class="row">
+                <div class="col-xs-12 top-buffer">
+                  <h2>You Scored {{quiz.quizObj.numCorrect}} / {{ quiz.quizQuestions.length }}</h2>
+                  <h2><strong>{{quiz.calculatePerc()}}%</strong></h2>
+                </div>
+              </div>
+              <h3>Questions:</h3>
               <div class="row">
                 <div class="col-xs-12">
                   <h4>{{ quiz.newActiveQuestion+1 +". " + quiz.quizQuestions[quiz.activeQuestion].text }}</h4>

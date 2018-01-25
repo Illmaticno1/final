@@ -9,7 +9,6 @@ app.controller('ListController', function() {
 
   this.changeActiveFact = (index) => {
     this.activeFact = index;
-    console.log('btn works');
   };
 
   this.fbFactz = [
@@ -236,10 +235,15 @@ app.controller('quizCtrl', function() {
     };
     return dataObj;
   };
-  let quizObj = {};
-
+  this.quizObj = {};
+  this.quizObj.numCorrect = 0;
+  this.calculatePerc = () => {
+    console.log(this.quizObj);
+    console.log(this.quizMetrics);
+    return this.quizObj.numCorrect / this.quizQuestions.length * 100;
+  }
   this.quizMetrics = (dataService) => {
-      quizObj = {
+      this.quizObj = {
       quizActive: false,
       resultsActive: false,
       changeState: changeState,
@@ -247,25 +251,24 @@ app.controller('quizCtrl', function() {
       markQuiz: markQuiz,
       numCorrect: 0
     };
-    return quizObj;
+    return this.quizObj;
   }
+
   this.changeState = (metric, state) => {
     if(metric === 'quiz'){
-      quizObj.quizActive = state;
+      this.quizObj.quizActive = state;
     }else if(metric === 'results'){
-      quizObj.resultsActive = state;
+      this.quizObj.resultsActive = state;
     }else{
       return false;
     }
   }
   this.markQuiz = () => {
-     quizObj.correctAnswers = this.dataService.correctAnswers;
-     console.log(this.quizQuestions);
+     this.quizObj.correctAnswers = this.dataService.correctAnswers;
      for (let i = 0; i < this.quizQuestions.length; i++) {
-       console.log(this.quizQuestions[i]);
-       if (this.quizQuestions[i].selected === correctAnswers[i]) {
+       if (this.quizQuestions[i].selected === this.correctAnswers[i]) {
          this.quizQuestions[i].correct = true;
-         quizObj.numCorrect++;
+         this.quizObj.numCorrect++;
        } else {
          this.quizQuestions[i].correct = false;
        }
@@ -274,11 +277,9 @@ app.controller('quizCtrl', function() {
 ///////////////////////////////////////////////////////
   this.selectAnswer = (index) => {
     this.quizQuestions[this.activeQuestion].selected = index;
-    console.log(index);
   }
 
   this.finalizeAnswers = () => {
-    console.log('finalize answers');
     this.finalize = false;
     this.showResults = true;
     numQuestionAnswered = 0;
@@ -304,6 +305,10 @@ app.controller('quizCtrl', function() {
     } else {
       this.activeQuestion = index;
     }
+  }
+
+  this.newSetActiveQuestion = (index) => {
+    this.activeQuestion = index;
   }
 
   this.questionAnswered = () => {
