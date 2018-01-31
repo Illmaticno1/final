@@ -226,7 +226,6 @@ app.controller('quizCtrl', function() {
   this.finalize = false;
   let numQuestionAnswered = 0;
   this.correctAnswers = [0, 1, 3, 1, 2, 0, 1, 1, 1];
-// //////////////logic for marking the quiz/////////////////////////////////
   this.dataService = () => {
     let dataObj = {
       fbFactz: fbFactz,
@@ -238,8 +237,6 @@ app.controller('quizCtrl', function() {
   this.quizObj = {};
   this.quizObj.numCorrect = 0;
   this.calculatePerc = () => {
-    console.log(this.quizObj);
-    console.log(this.quizMetrics);
     return this.quizObj.numCorrect / this.quizQuestions.length * 100;
   }
   this.quizMetrics = (dataService) => {
@@ -252,7 +249,19 @@ app.controller('quizCtrl', function() {
       numCorrect: 0
     };
     return this.quizObj;
-  }
+  };
+  this.reset = () => {
+    console.log('works');
+    this.changeState('results', false);
+    this.numCorrect = 0;
+
+    for (let i = 0; i < this.quizQuestions.length; i++) {
+      let data = this.quizQuestions[i];
+
+      data.selected = null;
+      data.correct = null;
+    }
+  };
 
   this.changeState = (metric, state) => {
     if(metric === 'quiz'){
@@ -263,6 +272,7 @@ app.controller('quizCtrl', function() {
       return false;
     }
   }
+
   this.markQuiz = () => {
      this.quizObj.correctAnswers = this.dataService.correctAnswers;
      for (let i = 0; i < this.quizQuestions.length; i++) {
@@ -273,11 +283,11 @@ app.controller('quizCtrl', function() {
          this.quizQuestions[i].correct = false;
        }
      }
-  }
+  };
 ///////////////////////////////////////////////////////
   this.selectAnswer = (index) => {
     this.quizQuestions[this.activeQuestion].selected = index;
-  }
+  };
 
   this.finalizeAnswers = () => {
     this.finalize = false;
@@ -287,7 +297,7 @@ app.controller('quizCtrl', function() {
     this.markQuiz();
     this.changeState('quiz', false);
     this.changeState('results', true);
-  }
+  };
 
   this.setActiveQuestion = (index) => {
     if (index === undefined) {

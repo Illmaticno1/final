@@ -193,7 +193,7 @@
               <div class="row">
                 <div class="col-xs-12">
                   <h4>{{ quiz.newActiveQuestion+1 +". " + quiz.quizQuestions[quiz.activeQuestion].text }}</h4>
-                  <div class="row">
+                  <div class="row" ng-if="quiz.quizQuestions[quiz.activeQuestion].type === 'text'">
                     <div class="col-sm-6" ng-repeat="answer in quiz.quizQuestions[quiz.activeQuestion].possibilities">
                       <h4 class="answer" ng-class="quiz.getAnswerClass($index)">{{ answer.answer }}
                         <p class="pull-right" ng-show='$index !== quiz.correctAnswers[quiz.activeQuestion] && $index === quiz.quizQuestions[quiz.activeQuestion].selected'>Your Answer</p>
@@ -203,12 +203,18 @@
                   </div>
                 </div>
               </div>
-
+              <div class="row" ng-if="quiz.quizQuestions[quiz.activeQuestion].type === 'image'">
+                <div class="col-sm-6" ng-repeat='answer in quiz.quizQuestions[quiz.activeQuestion].possibilities'>
+                  <div class="image-answer" ng-class='quiz.getAnswerClass($index)'>
+                    <img ng-src="{{ answer.answer }}">
+                  </div>
+                </div>
+              </div>
             </div>
+            <button class="btn btn-primary btn-lg" ng-click="quiz.reset()">Go Back to Factz</button>
           </div> <!-- end of quiz -->
 
         </div> <!-- end of list controller-->
-
 
     </div> <!-- end of container -->
 
